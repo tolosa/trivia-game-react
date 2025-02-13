@@ -11,13 +11,17 @@ export const Layout = ({ title, icon, children }) => {
             mx: "auto",
             display: "flex",
             alignItems: "center",
+            textShadow: "0px 0px 12px rgba(255, 255, 255, 0.4)",
             py: 1.2,
           }}
         >
           {icon && <Icon sx={{ fontSize: "3.3rem", mr: 0.3 }}>{icon}</Icon>}
           <Typography
             variant="h4"
-            sx={{ fontVariant: "small-caps", fontWeight: "bold" }}
+            sx={{
+              fontVariant: "small-caps",
+              fontWeight: "bold",
+            }}
           >
             {title}
           </Typography>
