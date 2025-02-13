@@ -1,7 +1,7 @@
-import { AppBar, Container, Typography } from "@mui/material";
+import { AppBar, Container, Icon, Typography } from "@mui/material";
 import PropTypes from "prop-types";
 
-export const Layout = ({ title, children }) => {
+export const Layout = ({ title, icon, children }) => {
   return (
     <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <AppBar position="sticky">
@@ -11,10 +11,16 @@ export const Layout = ({ title, children }) => {
             mx: "auto",
             display: "flex",
             alignItems: "center",
-            py: 1.5,
+            py: 1.2,
           }}
         >
-          <Typography variant="h5">{title}</Typography>
+          {icon && <Icon sx={{ fontSize: "3.3rem", mr: 0.3 }}>{icon}</Icon>}
+          <Typography
+            variant="h4"
+            sx={{ fontVariant: "small-caps", fontWeight: "bold" }}
+          >
+            {title}
+          </Typography>
         </Container>
       </AppBar>
       <Container
@@ -37,5 +43,6 @@ export const Layout = ({ title, children }) => {
 
 Layout.propTypes = {
   title: PropTypes.string.isRequired,
+  icon: PropTypes.string,
   children: PropTypes.node.isRequired,
 };

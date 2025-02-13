@@ -20,7 +20,7 @@ createRoot(document.getElementById("root")).render(
   <ThemeProvider theme={theme} noSsr>
     <CssBaseline />
     <StrictMode>
-      <Layout title="Trivia Game">
+      <Layout title="Trivia Game" icon="psychology_alt">
         <App />
       </Layout>
     </StrictMode>
