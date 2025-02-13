@@ -1,14 +1,13 @@
 // App.js
 import { useState, useEffect } from "react";
 import {
-  Container,
-  Box,
   Typography,
   Button,
   FormControl,
   InputLabel,
   Select,
   MenuItem,
+  TextField,
 } from "@mui/material";
 
 function App() {
@@ -93,19 +92,17 @@ function App() {
           Trivia Game
         </Typography>
         {/* Difficulty selection */}
-        <FormControl sx={{ minWidth: 250, mb: 2 }}>
-          <InputLabel id="difficulty-label">Difficulty</InputLabel>
-          <Select
-            labelId="difficulty-label"
-            value={difficulty}
-            label="Difficulty"
-            onChange={(e) => setDifficulty(e.target.value)}
-          >
-            <MenuItem value="easy">Easy</MenuItem>
-            <MenuItem value="medium">Medium</MenuItem>
-            <MenuItem value="hard">Hard</MenuItem>
-          </Select>
-        </FormControl>
+        <TextField
+          select
+          label="Difficulty"
+          value={difficulty}
+          onChange={(e) => setDifficulty(e.target.value)}
+          sx={{ minWidth: 250, mb: 2 }}
+        >
+          <MenuItem value="easy">Easy</MenuItem>
+          <MenuItem value="medium">Medium</MenuItem>
+          <MenuItem value="hard">Hard</MenuItem>
+        </TextField>
         {/* Category selection */}
         <FormControl sx={{ minWidth: 250, mb: 2 }}>
           <InputLabel id="category-label">Category</InputLabel>
