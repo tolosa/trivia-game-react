@@ -85,63 +85,48 @@ function App() {
     return txt.value;
   };
 
-  // Common Box style for centering content
-  const centeredBoxProps = {
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    minHeight: "100vh",
-  };
-
   // === Stage 1: Setup Screen ===
   if (stage === "setup") {
     return (
-      <Container>
-        <Box {...centeredBoxProps}>
-          <Typography variant="h3" gutterBottom>
-            Trivia Game
-          </Typography>
-          {/* Difficulty selection */}
-          <FormControl sx={{ minWidth: 250, mb: 2 }}>
-            <InputLabel id="difficulty-label">Difficulty</InputLabel>
-            <Select
-              labelId="difficulty-label"
-              value={difficulty}
-              label="Difficulty"
-              onChange={(e) => setDifficulty(e.target.value)}
-            >
-              <MenuItem value="easy">Easy</MenuItem>
-              <MenuItem value="medium">Medium</MenuItem>
-              <MenuItem value="hard">Hard</MenuItem>
-            </Select>
-          </FormControl>
-          {/* Category selection */}
-          <FormControl sx={{ minWidth: 250, mb: 2 }}>
-            <InputLabel id="category-label">Category</InputLabel>
-            <Select
-              labelId="category-label"
-              value={category}
-              label="Category"
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              {categories.map((cat) => (
-                <MenuItem key={cat.id} value={cat.id}>
-                  {cat.name}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-          {/* Start quiz button */}
-          <Button
-            variant="contained"
-            onClick={startQuiz}
-            sx={{ px: 4, py: 1.5 }}
+      <>
+        <Typography variant="h3" gutterBottom>
+          Trivia Game
+        </Typography>
+        {/* Difficulty selection */}
+        <FormControl sx={{ minWidth: 250, mb: 2 }}>
+          <InputLabel id="difficulty-label">Difficulty</InputLabel>
+          <Select
+            labelId="difficulty-label"
+            value={difficulty}
+            label="Difficulty"
+            onChange={(e) => setDifficulty(e.target.value)}
           >
-            Start Quiz
-          </Button>
-        </Box>
-      </Container>
+            <MenuItem value="easy">Easy</MenuItem>
+            <MenuItem value="medium">Medium</MenuItem>
+            <MenuItem value="hard">Hard</MenuItem>
+          </Select>
+        </FormControl>
+        {/* Category selection */}
+        <FormControl sx={{ minWidth: 250, mb: 2 }}>
+          <InputLabel id="category-label">Category</InputLabel>
+          <Select
+            labelId="category-label"
+            value={category}
+            label="Category"
+            onChange={(e) => setCategory(e.target.value)}
+          >
+            {categories.map((cat) => (
+              <MenuItem key={cat.id} value={cat.id}>
+                {cat.name}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+        {/* Start quiz button */}
+        <Button variant="contained" onClick={startQuiz} sx={{ px: 4, py: 1.5 }}>
+          Start Quiz
+        </Button>
+      </>
     );
   }
 
@@ -156,50 +141,48 @@ function App() {
     ].sort(() => Math.random() - 0.5);
 
     return (
-      <Container>
-        <Box {...centeredBoxProps} textAlign="center">
-          <Typography variant="h4" gutterBottom>
-            {decodeHtml(currentQuestion.question)}
-          </Typography>
-          {answers.map((answer, index) => (
+      <>
+        <Typography variant="h5" gutterBottom textAlign="center">
+          {decodeHtml(currentQuestion.question)}
+        </Typography>
+        {answers.map((answer, index) => (
+          <Button
+            key={index}
+            variant="outlined"
+            onClick={() => handleAnswer(answer)}
+            disabled={selectedAnswer !== null}
+            sx={{ m: 1, px: 4, py: 1.5 }}
+          >
+            {decodeHtml(answer)}
+          </Button>
+        ))}
+
+        {/* Show feedback if an answer has been selected */}
+        {selectedAnswer !== null && (
+          <>
+            <Typography variant="h5" sx={{ mt: 2 }}>
+              {selectedAnswer === currentQuestion.correct_answer
+                ? "Correct!"
+                : `Incorrect! The correct answer was: ${decodeHtml(
+                    currentQuestion.correct_answer
+                  )}`}
+            </Typography>
             <Button
-              key={index}
-              variant="outlined"
-              onClick={() => handleAnswer(answer)}
-              disabled={selectedAnswer !== null}
-              sx={{ m: 1, px: 4, py: 1.5 }}
+              variant="contained"
+              onClick={handleNextQuestion}
+              sx={{ mt: 2, px: 4, py: 1.5 }}
             >
-              {decodeHtml(answer)}
+              {currentQuestionIndex + 1 === questions.length
+                ? "Finish Quiz"
+                : "Next Question"}
             </Button>
-          ))}
+          </>
+        )}
 
-          {/* Show feedback if an answer has been selected */}
-          {selectedAnswer !== null && (
-            <>
-              <Typography variant="h5" sx={{ mt: 2 }}>
-                {selectedAnswer === currentQuestion.correct_answer
-                  ? "Correct!"
-                  : `Incorrect! The correct answer was: ${decodeHtml(
-                      currentQuestion.correct_answer
-                    )}`}
-              </Typography>
-              <Button
-                variant="contained"
-                onClick={handleNextQuestion}
-                sx={{ mt: 2, px: 4, py: 1.5 }}
-              >
-                {currentQuestionIndex + 1 === questions.length
-                  ? "Finish Quiz"
-                  : "Next Question"}
-              </Button>
-            </>
-          )}
-
-          <Typography variant="h6" sx={{ mt: 2 }}>
-            Question {currentQuestionIndex + 1} of {questions.length}
-          </Typography>
-        </Box>
-      </Container>
+        <Typography variant="h6" sx={{ mt: 2 }}>
+          Question {currentQuestionIndex + 1} of {questions.length}
+        </Typography>
+      </>
     );
   }
 
@@ -207,23 +190,21 @@ function App() {
   if (stage === "result") {
     const percentage = Math.round((score / questions.length) * 100);
     return (
-      <Container>
-        <Box {...centeredBoxProps}>
-          <Typography variant="h3" gutterBottom>
-            Quiz Complete!
-          </Typography>
-          <Typography variant="h4" gutterBottom>
-            Your Score: {percentage}%
-          </Typography>
-          <Button
-            variant="contained"
-            onClick={restartQuiz}
-            sx={{ px: 4, py: 1.5 }}
-          >
-            Play Again
-          </Button>
-        </Box>
-      </Container>
+      <>
+        <Typography variant="h3" gutterBottom>
+          Quiz Complete!
+        </Typography>
+        <Typography variant="h4" gutterBottom>
+          Your Score: {percentage}%
+        </Typography>
+        <Button
+          variant="contained"
+          onClick={restartQuiz}
+          sx={{ px: 4, py: 1.5 }}
+        >
+          Play Again
+        </Button>
+      </>
     );
   }
 

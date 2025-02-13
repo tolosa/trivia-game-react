@@ -1,6 +1,7 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { ThemeProvider, createTheme, CssBaseline } from "@mui/material";
+import { Layout } from "./components/Layout.jsx";
 import App from "./App.jsx";
 
 const theme = createTheme({
@@ -19,7 +20,9 @@ createRoot(document.getElementById("root")).render(
   <ThemeProvider theme={theme} noSsr>
     <CssBaseline />
     <StrictMode>
-      <App />
+      <Layout title="Trivia Game">
+        <App />
+      </Layout>
     </StrictMode>
   </ThemeProvider>
 );
