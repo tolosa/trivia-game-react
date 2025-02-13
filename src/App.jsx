@@ -99,50 +99,34 @@ function App() {
     return (
       <Container>
         <Box {...centeredBoxProps}>
-          <Typography variant="h3" gutterBottom sx={{ fontSize: "2.5rem" }}>
+          <Typography variant="h3" gutterBottom>
             Trivia Game
           </Typography>
           {/* Difficulty selection */}
           <FormControl sx={{ minWidth: 250, mb: 2 }}>
-            <InputLabel id="difficulty-label" sx={{ fontSize: "1.5rem" }}>
-              Difficulty
-            </InputLabel>
+            <InputLabel id="difficulty-label">Difficulty</InputLabel>
             <Select
               labelId="difficulty-label"
               value={difficulty}
               label="Difficulty"
               onChange={(e) => setDifficulty(e.target.value)}
-              sx={{ fontSize: "1.5rem" }}
             >
-              <MenuItem value="easy" sx={{ fontSize: "1.5rem" }}>
-                Easy
-              </MenuItem>
-              <MenuItem value="medium" sx={{ fontSize: "1.5rem" }}>
-                Medium
-              </MenuItem>
-              <MenuItem value="hard" sx={{ fontSize: "1.5rem" }}>
-                Hard
-              </MenuItem>
+              <MenuItem value="easy">Easy</MenuItem>
+              <MenuItem value="medium">Medium</MenuItem>
+              <MenuItem value="hard">Hard</MenuItem>
             </Select>
           </FormControl>
           {/* Category selection */}
           <FormControl sx={{ minWidth: 250, mb: 2 }}>
-            <InputLabel id="category-label" sx={{ fontSize: "1.5rem" }}>
-              Category
-            </InputLabel>
+            <InputLabel id="category-label">Category</InputLabel>
             <Select
               labelId="category-label"
               value={category}
               label="Category"
               onChange={(e) => setCategory(e.target.value)}
-              sx={{ fontSize: "1.5rem" }}
             >
               {categories.map((cat) => (
-                <MenuItem
-                  key={cat.id}
-                  value={cat.id}
-                  sx={{ fontSize: "1.5rem" }}
-                >
+                <MenuItem key={cat.id} value={cat.id}>
                   {cat.name}
                 </MenuItem>
               ))}
@@ -152,7 +136,7 @@ function App() {
           <Button
             variant="contained"
             onClick={startQuiz}
-            sx={{ fontSize: "1.5rem", px: 4, py: 1.5 }}
+            sx={{ px: 4, py: 1.5 }}
           >
             Start Quiz
           </Button>
@@ -174,7 +158,7 @@ function App() {
     return (
       <Container>
         <Box {...centeredBoxProps} textAlign="center">
-          <Typography variant="h4" gutterBottom sx={{ fontSize: "2rem" }}>
+          <Typography variant="h4" gutterBottom>
             {decodeHtml(currentQuestion.question)}
           </Typography>
           {answers.map((answer, index) => (
@@ -183,7 +167,7 @@ function App() {
               variant="outlined"
               onClick={() => handleAnswer(answer)}
               disabled={selectedAnswer !== null}
-              sx={{ m: 1, fontSize: "1.5rem", px: 4, py: 1.5 }}
+              sx={{ m: 1, px: 4, py: 1.5 }}
             >
               {decodeHtml(answer)}
             </Button>
@@ -192,7 +176,7 @@ function App() {
           {/* Show feedback if an answer has been selected */}
           {selectedAnswer !== null && (
             <>
-              <Typography variant="h5" sx={{ mt: 2, fontSize: "1.5rem" }}>
+              <Typography variant="h5" sx={{ mt: 2 }}>
                 {selectedAnswer === currentQuestion.correct_answer
                   ? "Correct!"
                   : `Incorrect! The correct answer was: ${decodeHtml(
@@ -202,7 +186,7 @@ function App() {
               <Button
                 variant="contained"
                 onClick={handleNextQuestion}
-                sx={{ mt: 2, fontSize: "1.5rem", px: 4, py: 1.5 }}
+                sx={{ mt: 2, px: 4, py: 1.5 }}
               >
                 {currentQuestionIndex + 1 === questions.length
                   ? "Finish Quiz"
@@ -211,7 +195,7 @@ function App() {
             </>
           )}
 
-          <Typography variant="h6" sx={{ mt: 2, fontSize: "1.5rem" }}>
+          <Typography variant="h6" sx={{ mt: 2 }}>
             Question {currentQuestionIndex + 1} of {questions.length}
           </Typography>
         </Box>
@@ -225,16 +209,16 @@ function App() {
     return (
       <Container>
         <Box {...centeredBoxProps}>
-          <Typography variant="h3" gutterBottom sx={{ fontSize: "2.5rem" }}>
+          <Typography variant="h3" gutterBottom>
             Quiz Complete!
           </Typography>
-          <Typography variant="h4" gutterBottom sx={{ fontSize: "2rem" }}>
+          <Typography variant="h4" gutterBottom>
             Your Score: {percentage}%
           </Typography>
           <Button
             variant="contained"
             onClick={restartQuiz}
-            sx={{ fontSize: "1.5rem", px: 4, py: 1.5 }}
+            sx={{ px: 4, py: 1.5 }}
           >
             Play Again
           </Button>
